@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "reset.css": "^2.0.2",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
@@ -105,6 +106,8 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "^0.0.31",
     "karma-webpack": "^2.0.1",
+    "less": "^3.0.1",
+    "less-loader": "^4.1.0",
     "mocha": "^3.0.2",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",

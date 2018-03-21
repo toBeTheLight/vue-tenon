@@ -50,6 +50,18 @@ let webConfig = {
         })
       },
       {
+        test: /\.less$/,
+        use: [{
+          loader: "style-loader" 
+        }, 
+        {
+          loader: "css-loader" 
+        },
+        {
+           loader: "less-loader"
+        }]
+      },
+      {
         test: /\.html$/,
         use: 'vue-html-loader'
       },

@@ -1,5 +1,5 @@
 <template>
-  <div>项目列表</div>
+<div class="page">project</div>
 </template>
 
 <script>
