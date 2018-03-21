@@ -1,10 +1,9 @@
 <template>
-  <div class="full"></div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
-import {Component} from 'vue-class-component'
+import Component from 'vue-class-component'
 
 @Component
 export default class ProjectConfig extends Vue {
