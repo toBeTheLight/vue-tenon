@@ -1,17 +1,20 @@
 <template>
-  <div class="page">
-    1
+  <div class="page page-project">
+    <ProjectConfig />
+    <ProjectOverView />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import projectConfig from './children/projectConfig.vue'
+import ProjectConfig from './children/projectConfig.vue'
+import ProjectOverView from './children/projectOverview.vue'
 
 @Component({
   components: {
-    projectConfig: projectConfig
+    ProjectConfig,
+    ProjectOverView
   }
 })
 export default class Project extends Vue {
@@ -19,6 +22,8 @@ export default class Project extends Vue {
 }
 </script>
 
-<style>
-
+<style scoped lang="less">
+.page-project{
+  display: flex;
+}
 </style>
