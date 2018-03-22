@@ -4,6 +4,9 @@
     "strict": true,
     "module": "es2015",
     "experimentalDecorators": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "lib": [
+      "es2015"
+    ]
   }
 }

@@ -35,5 +35,5 @@
       ]
     }
   },
-  "plugins": ["transform-runtime", "transform-decorators-legacy"]
+  "plugins": ["transform-runtime", "transform-decorators-legacy", "transform-class-properties"]
 }
