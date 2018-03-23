@@ -19,7 +19,7 @@ export default class Mask extends Vue {
 </script>
 
 <style scoped lang="less">
-@import url("~@/assets/less/var.less");
+@import url("~@/style/var.less");
 .mask{
   position: absolute;
   top: 0;

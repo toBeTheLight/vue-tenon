@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 
-import '@/assets/less/common.less'
+import '@/style/common.less'
 
 import App from './App.vue'
 import router from './router'

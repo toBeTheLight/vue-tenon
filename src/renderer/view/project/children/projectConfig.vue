@@ -1,12 +1,12 @@
 <template>
   <div class="project-config">
     <el-button 
-      v-if="projectName === ''"
+      v-if="!projectConfigured"
       type="success" 
       icon="el-icon-circle-plus-outline"
       @click="$emit('beginCreate')"
     />
-    <p v-if="projectName">{{projectName}}</p>
+    <label v-else class="project__title">{{projectName}}</label>
   </div>
 </template>
 
@@ -24,14 +24,32 @@ export default class ProjectConfig extends Vue {
   get projectName ():string {
     return this.$store.state.projectName
   }
+  get projectPath ():string {
+    return this.$store.state.projectPath
+  }
+  get projectConfigured ():boolean {
+    return this.$store.getters.projectConfigured
+  }
+
+  beginCreate ():void {
+    this.$emit('beginCreate')
+  }
 }
 </script>
 
 <style scoped lang="less">
+@import url('~@/style/var.less');
+
 .project-config{
+  position: absolute;
+  left: 0;
+  top: 0;
   padding: 0 10px;
   line-height: 50px;
-  background-color: #3369e7;
   flex: none;
+}
+.project__title{
+  font-size: 25px;
+  color: @black;
 }
 </style>

@@ -15,7 +15,7 @@
           <label class="form-label">项目名称：</label>
           <el-input v-model="tempProjectName" size="small" placeholder="字母开头的字母或数字"></el-input>
         </div>
-        <div class="form-item form__tips">
+        <div class="form-item form__tip">
           <p>当前信息保存后无法修改</p>
         </div>
         <div class="form-item form__btns">
@@ -29,7 +29,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { selectDirPath, projectPathPassed, projectNamePassed } from '../../../utils/projectCreate'
+import { selectDirPath, projectPathPassed, projectNamePassed } from '../../../biz/projectCreate'
 import { SET_NEW_PROJECT } from '../../../store/mutations/types'
 
 @Component({
@@ -72,7 +72,7 @@ export default class ProjectCreate extends Vue {
 </script>
 
 <style lang="less" scoped>
-@import url("~@/assets/less/var.less");
+@import url("~@/style/var.less");
 
 .project-create {
   display: flex;
@@ -110,7 +110,7 @@ export default class ProjectCreate extends Vue {
 .form__name--temp{
   margin-top: 10px;
 }
-.form__tips{
+.form__tip{
   color: @warnColor;
   font-size: 12px;
   line-height: 20px;
@@ -120,10 +120,10 @@ export default class ProjectCreate extends Vue {
 }
 
 .fly-enter-active, .fly-leave-active {
-  transition: all .2s linear;
+  transition: all .1s linear;
 }
 .fly-enter, .fly-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  transform: translateY(-100%);
+  transform: translateY(-10%);
   opacity: .4;
   z-index: 2;
 }
