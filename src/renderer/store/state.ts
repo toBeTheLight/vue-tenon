@@ -1,7 +1,4 @@
-export interface State {
-  projectPath: string
-  projectName: string
-}
+import { State } from './interface'
 
 let state: State = {
   projectPath: '',

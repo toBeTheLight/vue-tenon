@@ -1,11 +1,5 @@
 import { SET_NEW_PROJECT } from './types'
-import { State } from '../state'
-
-
-interface ProjectPayload {
-  projectName: string,
-  projectPath: string
-}
+import { State, ProjectPayload } from '../interface'
 
 export default {
   [SET_NEW_PROJECT] (state: State, data: ProjectPayload) {
