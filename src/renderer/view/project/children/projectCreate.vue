@@ -84,7 +84,7 @@ export default class ProjectCreate extends Vue {
   will-change: transform;
 }
 .form{
-  min-width: 500px;
+  width: 500px;
   padding: 0px 10px;
   position: relative;
 }
@@ -102,6 +102,7 @@ export default class ProjectCreate extends Vue {
 }
 .form__path--temp{
   p{
+    .text-cut;
     color: @pathColor;
     font-size: 12px;
     line-height: 20px;

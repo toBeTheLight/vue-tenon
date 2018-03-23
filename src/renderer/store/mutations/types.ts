@@ -1,1 +1,1 @@
-export const SET_NEW_PROJECT:string = 'SET_NEW_PROJECT'
+export const SET_NEW_PROJECT: string = 'SET_NEW_PROJECT'

@@ -1,12 +1,18 @@
 <template>
-  <div class="project-config">
-    <el-button 
+  <div class="project-config" :class="{'list--open': listIsOpen === true}">
+    <el-button
+      class="project-new"
       v-if="!projectConfigured"
-      type="success" 
+      type="success"
       icon="el-icon-circle-plus-outline"
       @click="$emit('beginCreate')"
     />
-    <label v-else class="project__title">{{projectName}}</label>
+    <div v-else class="project-list" :class="{'list--open': listIsOpen === true}">
+      <label class="list__title--active" @click="toggleListState">
+        <span>{{projectName}}</span>
+        <i class="list__switch el-icon-caret-bottom"></i>
+      </label>
+    </div>
   </div>
 </template>
 
@@ -21,6 +27,8 @@ import ProjectCreate from './projectCreate.vue'
   }
 })
 export default class ProjectConfig extends Vue {
+  listIsOpen: boolean = false
+
   get projectName ():string {
     return this.$store.state.projectName
   }
@@ -34,22 +42,53 @@ export default class ProjectConfig extends Vue {
   beginCreate ():void {
     this.$emit('beginCreate')
   }
+  toggleListState () {
+    this.listIsOpen = !this.listIsOpen
+    this.$emit('showList', this.listIsOpen)
+  }
 }
 </script>
 
 <style scoped lang="less">
 @import url('~@/style/var.less');
 
-.project-config{
+.project-config {
   position: absolute;
   left: 0;
   top: 0;
-  padding: 0 10px;
-  line-height: 50px;
   flex: none;
 }
-.project__title{
+.project-new{
+  margin: 10px;
+}
+.project-list {
+  width: 180px;
+  padding: 10px;
+  .text-cut;
+}
+.list--open{
+  background-color: @ghost;
+  height: 100%;
+}
+.list__title--active {
+  position: relative;
+  display: inline-block;
   font-size: 25px;
+  line-height: 40px;
+  width: 100%;
+  text-align: center;
   color: @black;
+  border-bottom: 1px solid @gray;
+  cursor: pointer;
+}
+.list__switch {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto 0;
+  font-size: 12px;
+  height: 12px;
 }
 </style>

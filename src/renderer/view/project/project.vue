@@ -1,7 +1,7 @@
 <template>
   <div class="page page-project">
-    <VtMask :show="beginCreateState"/>
-    <ProjectConfig @beginCreate="beginCreate"/>
+    <VtMask :show="showMask"/>
+    <ProjectConfig @beginCreate="beginCreate" @showList="showList"/>
     <ProjectOverview />
     <ProjectCreate @endCreate="endCreate" :beginCreate="beginCreateState"/>
   </div>
@@ -25,12 +25,18 @@ import VtMask from '../../components/VtMask.vue'
 })
 export default class Project extends Vue {
   beginCreateState = false
+  showMask = false
 
   beginCreate ():void {
     this.beginCreateState = true
+    this.showMask = true
   }
   endCreate ():void {
     this.beginCreateState = false
+    this.showMask = false
+  }
+  showList (isShow: boolean):void {
+    this.showMask = isShow
   }
 }
 </script>
