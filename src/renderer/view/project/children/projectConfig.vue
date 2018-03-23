@@ -4,12 +4,9 @@
       v-if="projectName === ''"
       type="success" 
       icon="el-icon-circle-plus-outline"
-      @click="beginCreate"
+      @click="$emit('beginCreate')"
     />
     <p v-if="projectName">{{projectName}}</p>
-    <transition>
-      <ProjectCreate @endCreate="endCreate" v-if="projectName === '' && beginCreateState"/>
-    </transition>
   </div>
 </template>
 
@@ -24,16 +21,8 @@ import ProjectCreate from './projectCreate.vue'
   }
 })
 export default class ProjectConfig extends Vue {
-  beginCreateState = false
-
   get projectName ():string {
     return this.$store.state.projectName
-  }
-  beginCreate ():void {
-    this.beginCreateState = true
-  }
-  endCreate ():void {
-    this.beginCreateState = false
   }
 }
 </script>

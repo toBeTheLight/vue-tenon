@@ -1,27 +1,29 @@
 <template>
-  <div class="project-create">
-    <el-card class="form">
-      <span class="form__close" @click="endCreate"><i class="el-icon-close"></i></span>
-      <div class="form-item form__path--select">
-        <label class="form-label">选择项目路径：</label>
-        <el-button type="primary" @click="selectDirPath">点击选择项目路径</el-button>
-      </div>
-      <div v-if="tempProjectPath !== ''" class="form-item form__path--temp">
-        <label class="form-label">选择地址为：</label>
-        <p>{{tempProjectPath}}</p>
-      </div>
-      <div class="form-item form__name--temp">
-        <label class="form-label">项目名称：</label>
-        <el-input v-model="tempProjectName" size="small" placeholder="字母开头的字母或数字"></el-input>
-      </div>
-      <div class="form-item form__tips">
-        <p>当前信息保存后无法修改</p>
-      </div>
-      <div class="form-item form__btns">
-        <el-button type="success" :disabled="!tempConfigPassed" @click="createNewProject">确定</el-button>
-      </div>
-    </el-card>
-  </div>
+  <transition name="fly">
+    <div class="project-create full" v-if="beginCreate">
+      <el-card class="form">
+        <span class="form__close" @click="endCreate"><i class="el-icon-close"></i></span>
+        <div class="form-item form__path--select">
+          <label class="form-label">选择项目路径：</label>
+          <el-button type="primary" @click="selectDirPath">点击选择项目路径</el-button>
+        </div>
+        <div v-if="tempProjectPath !== ''" class="form-item form__path--temp">
+          <label class="form-label">选择地址为：</label>
+          <p>{{tempProjectPath}}</p>
+        </div>
+        <div class="form-item form__name--temp">
+          <label class="form-label">项目名称：</label>
+          <el-input v-model="tempProjectName" size="small" placeholder="字母开头的字母或数字"></el-input>
+        </div>
+        <div class="form-item form__tips">
+          <p>当前信息保存后无法修改</p>
+        </div>
+        <div class="form-item form__btns">
+          <el-button type="success" :disabled="!tempConfigPassed" @click="createNewProject">确定</el-button>
+        </div>
+      </el-card>
+    </div>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -30,10 +32,15 @@ import Component from 'vue-class-component'
 import { selectDirPath, projectPathPassed, projectNamePassed } from '../../../utils/projectCreate'
 import { SET_NEW_PROJECT } from '../../../store/mutations/types'
 
-@Component
-export default class ProjectCreate extends Vue{
+@Component({
+  props:[
+    'beginCreate'
+  ]
+})
+export default class ProjectCreate extends Vue {
   tempProjectPath = ''
   tempProjectName = ''
+  show = false
 
   get tempConfigPassed () {
     return projectPathPassed(this.tempProjectPath) && projectNamePassed(this.tempProjectName)
@@ -66,18 +73,15 @@ export default class ProjectCreate extends Vue{
 
 <style lang="less" scoped>
 @import url("~@/assets/less/var.less");
+
 .project-create {
   display: flex;
   position: absolute;
+  left: 0;
+  top: 0;
   align-items: center;
   justify-content: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-color: @maskColor;
+  will-change: transform;
 }
 .form{
   min-width: 500px;
@@ -92,7 +96,7 @@ export default class ProjectCreate extends Vue{
 .form__close{
   position: absolute;
   right: 10px;
-  top: 0;
+  top: 10px;
   font-size: 20px;
   cursor: pointer;
 }
@@ -113,5 +117,14 @@ export default class ProjectCreate extends Vue{
 }
 .form__btns{
   text-align: center;
+}
+
+.fly-enter-active, .fly-leave-active {
+  transition: all .2s linear;
+}
+.fly-enter, .fly-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: translateY(-100%);
+  opacity: .4;
+  z-index: 2;
 }
 </style>
