@@ -1,26 +1,28 @@
 <template>
-  <div class="project-config" :class="{'list--open': listIsOpen === true}">
+  <div class="project-config">
     <el-button
-      class="project-new"
+      class="project-btn--new"
       v-if="!projectConfigured"
       type="success"
       icon="el-icon-circle-plus-outline"
       @click="$emit('beginCreate')"
     />
-    <button class="project-all" v-else @click="toggleListState">
-      <i class="el-icon-more"></i>
+    <button class="project-btn--all" :class="{open: listIsOpen}" v-else @click="toggleListState">
+      <i :class="listIsOpen ? 'el-icon-back' : 'el-icon-more'"></i>
     </button>
-    <div v-if="listIsOpen" class="project-list">
-      <label class="project__title--now">
-        <span>{{projectName}}</span>
-      </label>
-      <ul v-if="listIsOpen" class="project-list__wrapper">
-        <li class="list__title">1</li>
-        <li class="list__title">2</li>
-        <li class="list__title">3</li>
-      </ul>
-      <div class="project"></div>
-    </div>
+    <transition name="fly">
+      <div v-if="listIsOpen" class="project-list">
+        <label class="project-list__header">
+          <span>{{projectName}}</span>
+        </label>
+        <ul v-if="listIsOpen" class="project-list__body">
+          <li class="list__title" v-for="(item, i) in projectList" :key="i">{{item}}</li>
+        </ul>
+        <div class="project-list__footer">
+          <el-button type="success" size="small" icon="el-icon-plus" disabled round>创建项目</el-button>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -37,6 +39,7 @@ import { $Mask, VtMask } from '../../../components/vtMask/index'
 })
 export default class ProjectConfig extends Vue {
   listIsOpen: boolean = false
+  projectList: string[] = ['it\'s demo', 'it\'s demo', 'it\'s demo', 'it\'s demo']
 
   get projectName ():string {
     return this.$store.state.projectName
@@ -62,28 +65,16 @@ export default class ProjectConfig extends Vue {
 @import url('~@/style/var.less');
 
 .project-config {
-  position: absolute;
   left: 0;
   top: 0;
-  width: 200px;
-  height: 100%;
   z-index: 1000;
-  transform: translate3d(-100%,0,0);
-  transition: transform .3s linear;
 }
-.list--open {
-  transform: translate3d(0,0,0);
-  .project-all {
-    transform: translate3d(130px,0,0);
-  }
-}
-.project-new,.project-all{
+.project-btn--new, .project-btn--all {
   margin: 10px;
   transition: transform .3s linear;
-  transform: translate3d(200px,0,0);
   z-index: 1001;
 }
-.project-all{
+.project-btn--all {
   position: absolute;
   z-index: 1001;
   left: 0;
@@ -96,24 +87,36 @@ export default class ProjectConfig extends Vue {
   background-color: transparent;
   outline: none;
   cursor: pointer;
+  transition: transform .3s ease-in;
+  &.open {
+    transform: translate3d(130px,0,0);
+  }
 }
 .project-list {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 200px;
+  height: 100%;
   box-sizing: border-box;
   padding: 10px;
-  height: 100%;
   background-color: @ghost;
   z-index: 1000;
 }
-.fly-enter-active,.fly-leave-active{
+.list__title{
+  .text-cut;
+}
+.fly-enter-active,.fly-leave-active {
   transition: all .3s linear;
 }
 .fly-enter,.fly-leave-to{
   transform: translate3d(-100%,0,0);
 }
-.project__title--now {
-  position: relative;
+.project-list__header {
   display: inline-block;
+  position: relative;
   width: 180px;
+  flex: none;
   text-align: center;
   color: @black;
   border-bottom: 1px solid @gray;
@@ -121,19 +124,22 @@ export default class ProjectConfig extends Vue {
   span {
     line-height: 40px;
     font-size: 25px;
+    font-weight: 700;
     display: inline-block;
     width: 80%;
     .text-cut;
   }
 }
-.list__switch {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto 0;
-  font-size: 12px;
-  height: 12px;
+.project-list__body {
+  overflow: auto;
+  margin-top: 10px;
+  height: 100%;
+  font-size: 14px;
+  line-height: 30px;
+  color: @pathColor;
+}
+.project-list__footer {
+  text-align: center;
+  flex: none;
 }
 </style>
