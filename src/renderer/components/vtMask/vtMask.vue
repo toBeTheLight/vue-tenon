@@ -20,10 +20,8 @@ export default class VtMask extends Vue {
     this.openState = false
   }
   destroy () {
-    console.log(this.$el)
     document.body.removeChild(this.$el)
     this.$destroy()
-    console.log(1)
   }
   open () {
     if (this.openState) {

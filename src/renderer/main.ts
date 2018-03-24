@@ -22,9 +22,4 @@ let root = new Vue({
   router,
   store,
   template: '<App/>',
-  methods: {
-    console () {
-      console.log(1)
-    }
-  }
 }).$mount('#app')

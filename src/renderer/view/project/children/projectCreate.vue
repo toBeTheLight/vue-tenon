@@ -13,7 +13,7 @@
         </div>
         <div class="form-item form__name--temp">
           <label class="form-label">项目名称：</label>
-          <el-input v-model="tempProjectName" size="small" placeholder="字母开头的字母或数字"></el-input>
+          <el-input v-model="tempProjectName" size="small" placeholder="字母开头的20位以下字母或数字"></el-input>
         </div>
         <div class="form-item form__tip">
           <p>当前信息保存后无法修改</p>
@@ -30,7 +30,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { selectDirPath, projectPathPassed, projectNamePassed } from '../../../biz/projectCreate'
-import { SET_NEW_PROJECT } from '../../../store/mutations/types'
+import { ADD_PROJECT } from '../../../store/mutations/types'
 import { $Mask, VtMask } from '../../../components/vtMask/index'
 
 @Component({
@@ -59,7 +59,7 @@ export default class ProjectCreate extends Vue {
     }
   }
   createNewProject ():void {
-    this.$store.commit(SET_NEW_PROJECT, {
+    this.$store.commit(ADD_PROJECT, {
       projectName: this.tempProjectName,
       projectPath: this.tempProjectPath
     })

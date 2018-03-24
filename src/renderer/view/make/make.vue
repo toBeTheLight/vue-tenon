@@ -9,7 +9,7 @@ import Component from 'vue-class-component'
 @Component({})
 export default class Make extends Vue{
   toProject () {
-    this.$router.push('make')
+    this.$router.push({name: 'project'})
   }
 }
 </script>
