@@ -1,9 +1,8 @@
 <template>
   <div class="page page-project">
-    <VtMask :show="showMask"/>
-    <ProjectConfig @beginCreate="beginCreate" @showList="showList"/>
+    <ProjectConfig @beginCreate="beginCreate" ref="config"/>
     <ProjectOverview />
-    <ProjectCreate @endCreate="endCreate" :beginCreate="beginCreateState"/>
+    <ProjectCreate @endCreate="endCreate" v-if="beginCreateState"/>
   </div>
 </template>
 
@@ -13,11 +12,9 @@ import Component from 'vue-class-component'
 import ProjectConfig from './children/projectConfig.vue'
 import ProjectOverview from './children/projectOverview.vue'
 import ProjectCreate from './children/projectCreate.vue'
-import VtMask from '../../components/VtMask.vue'
 
 @Component({
   components: {
-    VtMask,
     ProjectConfig,
     ProjectOverview,
     ProjectCreate
@@ -34,9 +31,6 @@ export default class Project extends Vue {
   endCreate ():void {
     this.beginCreateState = false
     this.showMask = false
-  }
-  showList (isShow: boolean):void {
-    this.showMask = isShow
   }
 }
 </script>

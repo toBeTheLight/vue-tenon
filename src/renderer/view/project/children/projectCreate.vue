@@ -1,15 +1,15 @@
 <template>
-  <transition name="fly">
-    <div class="project-create full" v-if="beginCreate">
+  <transition name="fade">
+    <div class="project-create full">
       <el-card class="form">
         <span class="form__close" @click="endCreate"><i class="el-icon-close"></i></span>
         <div class="form-item form__path--select">
           <label class="form-label">选择项目路径：</label>
           <el-button type="primary" @click="selectDirPath">点击选择项目路径</el-button>
         </div>
-        <div v-if="tempProjectPath !== ''" class="form-item form__path--temp">
+        <div class="form-item form__path--temp">
           <label class="form-label">选择地址为：</label>
-          <p>{{tempProjectPath}}</p>
+          <p>{{tempProjectPath || '未选择'}}</p>
         </div>
         <div class="form-item form__name--temp">
           <label class="form-label">项目名称：</label>
@@ -23,7 +23,7 @@
         </div>
       </el-card>
     </div>
-  </transition>
+  </transition >
 </template>
 
 <script lang="ts">
@@ -31,6 +31,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { selectDirPath, projectPathPassed, projectNamePassed } from '../../../biz/projectCreate'
 import { SET_NEW_PROJECT } from '../../../store/mutations/types'
+import { $Mask, VtMask } from '../../../components/vtMask/index'
 
 @Component({
   props:[
@@ -40,8 +41,7 @@ import { SET_NEW_PROJECT } from '../../../store/mutations/types'
 export default class ProjectCreate extends Vue {
   tempProjectPath = ''
   tempProjectName = ''
-  show = false
-
+  $mask: null | VtMask = null
   get tempConfigPassed () {
     return projectPathPassed(this.tempProjectPath) && projectNamePassed(this.tempProjectName)
   }
@@ -67,6 +67,10 @@ export default class ProjectCreate extends Vue {
   }
   endCreate ():void {
     this.$emit('endCreate')
+    $Mask.close()
+  }
+  created () {
+    $Mask.open()
   }
 }
 </script>
@@ -81,8 +85,36 @@ export default class ProjectCreate extends Vue {
   top: 0;
   align-items: center;
   justify-content: center;
-  will-change: transform;
+  will-change: transform, opacity;
+  z-index: 1000;
 }
+.fade-enter-active {
+  animation: fade-in .3s;
+}
+.fade-leave-active {
+  animation: fade-out .3s;
+}
+@keyframes fade-in {
+  0% {
+    transform: translate3d(0, -20px, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, -20px, 0);
+    opacity: 0;
+  }
+}
+
 .form{
   width: 500px;
   padding: 0px 10px;
@@ -108,6 +140,7 @@ export default class ProjectCreate extends Vue {
     line-height: 20px;
   }
 }
+
 .form__name--temp{
   margin-top: 10px;
 }
@@ -118,14 +151,5 @@ export default class ProjectCreate extends Vue {
 }
 .form__btns{
   text-align: center;
-}
-
-.fly-enter-active, .fly-leave-active {
-  transition: all .1s linear;
-}
-.fly-enter, .fly-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  transform: translateY(-10%);
-  opacity: .4;
-  z-index: 2;
 }
 </style>

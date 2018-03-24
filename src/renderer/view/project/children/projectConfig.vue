@@ -7,11 +7,19 @@
       icon="el-icon-circle-plus-outline"
       @click="$emit('beginCreate')"
     />
-    <div v-else class="project-list" :class="{'list--open': listIsOpen === true}">
-      <label class="list__title--active" @click="toggleListState">
+    <button class="project-all" v-else @click="toggleListState">
+      <i class="el-icon-more"></i>
+    </button>
+    <div v-if="listIsOpen" class="project-list">
+      <label class="project__title--now">
         <span>{{projectName}}</span>
-        <i class="list__switch el-icon-caret-bottom"></i>
       </label>
+      <ul v-if="listIsOpen" class="project-list__wrapper">
+        <li class="list__title">1</li>
+        <li class="list__title">2</li>
+        <li class="list__title">3</li>
+      </ul>
+      <div class="project"></div>
     </div>
   </div>
 </template>
@@ -20,6 +28,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import ProjectCreate from './projectCreate.vue'
+import { $Mask, VtMask } from '../../../components/vtMask/index'
 
 @Component({
   components: {
@@ -39,12 +48,12 @@ export default class ProjectConfig extends Vue {
     return this.$store.getters.projectConfigured
   }
 
-  beginCreate ():void {
+  beginCreate () {
     this.$emit('beginCreate')
   }
   toggleListState () {
     this.listIsOpen = !this.listIsOpen
-    this.$emit('showList', this.listIsOpen)
+    $Mask.setState(this.listIsOpen)
   }
 }
 </script>
@@ -56,30 +65,66 @@ export default class ProjectConfig extends Vue {
   position: absolute;
   left: 0;
   top: 0;
-  flex: none;
+  width: 200px;
+  height: 100%;
+  z-index: 1000;
+  transform: translate3d(-100%,0,0);
+  transition: transform .3s linear;
 }
-.project-new{
+.list--open {
+  transform: translate3d(0,0,0);
+  .project-all {
+    transform: translate3d(130px,0,0);
+  }
+}
+.project-new,.project-all{
   margin: 10px;
+  transition: transform .3s linear;
+  transform: translate3d(200px,0,0);
+  z-index: 1001;
+}
+.project-all{
+  position: absolute;
+  z-index: 1001;
+  left: 0;
+  right: 0;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: @black;
+  font-weight: 500;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
 }
 .project-list {
-  width: 180px;
+  box-sizing: border-box;
   padding: 10px;
-  .text-cut;
-}
-.list--open{
-  background-color: @ghost;
   height: 100%;
+  background-color: @ghost;
+  z-index: 1000;
 }
-.list__title--active {
+.fly-enter-active,.fly-leave-active{
+  transition: all .3s linear;
+}
+.fly-enter,.fly-leave-to{
+  transform: translate3d(-100%,0,0);
+}
+.project__title--now {
   position: relative;
   display: inline-block;
-  font-size: 25px;
-  line-height: 40px;
-  width: 100%;
+  width: 180px;
   text-align: center;
   color: @black;
   border-bottom: 1px solid @gray;
   cursor: pointer;
+  span {
+    line-height: 40px;
+    font-size: 25px;
+    display: inline-block;
+    width: 80%;
+    .text-cut;
+  }
 }
 .list__switch {
   display: inline-block;
