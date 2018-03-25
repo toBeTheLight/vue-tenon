@@ -1,19 +1,32 @@
 <template>
-  <p @click="toProject">test</p>
+<div class="page page-make">
+  <CmptList />
+  <CmptResult />
+  <CmptOptions />
+</div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import CmptList from './children/CmptList.vue'
+import CmptOptions from './children/CmptOptions.vue'
+import CmptResult from './children/CmptResult.vue'
 
-@Component({})
-export default class Make extends Vue{
-  toProject () {
-    this.$router.push({name: 'project'})
+@Component({
+  components: {
+    CmptList,
+    CmptOptions,
+    CmptResult
   }
+})
+export default class Make extends Vue{
+
 }
 </script>
 
-<style>
-
+<style lang="less">
+.page-make {
+  display: flex;
+}
 </style>
