@@ -1,5 +1,7 @@
 <template>
-  <div class="cmpt-result"></div>
+  <div class="cmpt-result">
+    
+  </div>
 </template>
 
 <script lang="ts">

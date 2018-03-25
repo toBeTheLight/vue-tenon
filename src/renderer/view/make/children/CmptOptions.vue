@@ -13,10 +13,11 @@ export default class CmptOptions extends Vue {
 </script>
 
 <style lang="less">
+@import url("../../../style/var.less");
 .cmpt-options {
   width: 200px;
   height: 100%;
   flex: none;
-  outline: 1px solid black;
+  box-shadow: -1px 0 2px @gray;
 }
 </style>
