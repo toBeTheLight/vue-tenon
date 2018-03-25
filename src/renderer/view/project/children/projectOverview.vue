@@ -56,6 +56,7 @@ export default class ProjectOverview extends Vue {
   height: 100%;
   box-sizing: border-box;
   padding: 30px;
+  overflow: auto;
 }
 
 .overview__tip--no {
@@ -76,6 +77,9 @@ export default class ProjectOverview extends Vue {
   border: 2px solid @gray;
   &:hover{
     border-color: @blue;
+    .page__title {
+      border-top: 2px solid @blue;
+    }
   }
 }
 .page--tocreate {
@@ -113,6 +117,8 @@ export default class ProjectOverview extends Vue {
   border-radius: 0 0 10px 10px;
 }
 .page--empty {
+  margin-top: 0;
+  margin-bottom: 0;
   height: 0;
   visibility: hidden;
 }
