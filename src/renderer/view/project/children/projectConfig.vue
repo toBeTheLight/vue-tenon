@@ -67,16 +67,16 @@ export default class ProjectConfig extends Vue {
 .project-config {
   left: 0;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
 }
 .project-btn--new, .project-btn--all {
   margin: 10px;
   transition: transform .3s linear;
-  z-index: 1001;
+  z-index: 101;
 }
 .project-btn--all {
   position: absolute;
-  z-index: 1001;
+  z-index: 101;
   left: 0;
   right: 0;
   padding: 12px 20px;
@@ -101,7 +101,7 @@ export default class ProjectConfig extends Vue {
   box-sizing: border-box;
   padding: 10px;
   background-color: @ghost;
-  z-index: 1000;
+  z-index: 100;
 }
 .list__title{
   .text-cut;

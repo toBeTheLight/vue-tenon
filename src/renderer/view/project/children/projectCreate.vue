@@ -86,7 +86,7 @@ export default class ProjectCreate extends Vue {
   align-items: center;
   justify-content: center;
   will-change: transform, opacity;
-  z-index: 1000;
+  z-index: 100;
 }
 .fade-enter-active {
   animation: fade-in .3s;

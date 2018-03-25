@@ -47,7 +47,7 @@ export default class VtMask extends Vue {
   left: 0;
   will-change: opacity;
   background: @maskColor;
-  z-index: 999;
+  z-index: 99;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
