@@ -52,6 +52,7 @@ export default class ProjectOverview extends Vue {
 <style lang="less" scoped>
 @import url('~@/style/var.less');
 .project-overview {
+  position: relative;
   background-color: @ghost;
   height: 100%;
   box-sizing: border-box;
@@ -60,6 +61,14 @@ export default class ProjectOverview extends Vue {
 }
 
 .overview__tip--no {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
   margin: auto;
 }
 .overview__pages {

@@ -70,6 +70,7 @@ export default class ProjectConfig extends Vue {
   z-index: 100;
 }
 .project-btn--new, .project-btn--all {
+  position: absolute;
   margin: 10px;
   transition: transform .3s linear;
   z-index: 101;
