@@ -1,15 +1,11 @@
 import { remote } from 'electron'
 import * as fs from 'fs'
 
-interface dirPath {
-  path: string,
-  isEmpty: boolean
-}
-export const selectDirPath = ():Promise<dirPath> => {
+export const selectDirPath = () => {
   return new Promise((resolve, reject) => {
     remote.dialog.showOpenDialog({
       properties: ['openDirectory', 'createDirectory']
-    },  (paths: string[]) => {
+    },  paths => {
       if (paths && paths.length) {
       let children = fs.readdirSync(paths[0])
       resolve({
@@ -21,10 +17,11 @@ export const selectDirPath = ():Promise<dirPath> => {
   })
 }
 
-export const projectPathPassed = (path: string):boolean => {
+export const projectPathPassed = path => {
   return path !== ''
 }
 
-export const projectNamePassed = (name: string):boolean => {
+export const projectNamePassed = name => {
+  console.log()
   return /^[a-zA-Z][a-zA-Z0-9]{0,19}$/.test(name)
 }

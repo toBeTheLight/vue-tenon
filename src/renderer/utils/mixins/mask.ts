@@ -1,12 +1,10 @@
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import VtMask from './VtMask.vue'
-
-@Component
-export class MyMixin extends Vue {
-  elMask: HTMLDivElement = document.createElement('div')
-  elMaskRendered: boolean = false
-
+export default {
+  data () {
+    return {
+      elMask: document.createElement('div'),
+      elMaskRendered: false
+    }
+  },
   created () {
     if (this.elMaskRendered) {
       this.elMask = document.createElement('div')

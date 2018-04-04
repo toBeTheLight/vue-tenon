@@ -4,36 +4,38 @@
   </transition>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script>
 
-@Component({
+export default {
+  name: 'vt-mask',
   props: [
     'name'
   ],
-  name: 'vt-mask'
-})
-export default class VtMask extends Vue {
-  openState: boolean = false
-  close () {
-    this.openState = false
-  }
-  destroy () {
-    document.body.removeChild(this.$el)
-    this.$destroy()
-  }
-  open () {
-    if (this.openState) {
-      return
+  data () {
+    return {
+      openState: false
     }
-    this.openState = true
-  }
-  setState (state: boolean) {
-    if (state) {
-      this.open()
-    } else {
-      this.close()
+  },
+  methods: {
+    close () {
+      this.openState = false
+    },
+    destroy () {
+      document.body.removeChild(this.$el)
+      this.$destroy()
+    },
+    open () {
+      if (this.openState) {
+        return
+      }
+      this.openState = true
+    },
+    setState (state) {
+      if (state) {
+        this.open()
+      } else {
+        this.close()
+      }
     }
   }
 }

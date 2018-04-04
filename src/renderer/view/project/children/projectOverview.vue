@@ -22,30 +22,34 @@
     <h2 v-else class="overview__tip--no">配置你的第一个项目吧</h2>
   </div>
 </template>
-<script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script>
 import { pageNamePassed } from '../../../biz/pageCreate'
 
-@Component
-export default class ProjectOverview extends Vue {
-  private tempPageName: string = ''
-
-  private get projectConfigured ():boolean {
-    return this.$store.getters.projectConfigured
-  }
-  private get tempPageNamePassed ():boolean {
-    return pageNamePassed(this.tempPageName)
-  }
-  private get pageList () {
-    return this.$store.state.pageList
-  }
-  createPage () {
-    this.$store.dispatch('toAddPage', this.tempPageName)
-      .then(() => {
-        this.tempPageName = ''
-        this.$router.push({name: 'make'})
-      })
+export default {
+  data () {
+    return {
+      tempPageName: ''
+    }
+  },
+  computed: {
+    projectConfigured () {
+      return this.$store.getters.projectConfigured
+    },
+    tempPageNamePassed () {
+      return pageNamePassed(this.tempPageName)
+    },
+    pageList () {
+      return this.$store.state.pageList
+    }
+  },
+  methods: {
+    createPage () {
+      this.$store.dispatch('toAddPage', this.tempPageName)
+        .then(() => {
+          this.tempPageName = ''
+          this.$router.push({name: 'make'})
+        })
+    }
   }
 }
 </script>
@@ -60,6 +64,14 @@ export default class ProjectOverview extends Vue {
 }
 
 .overview__tip--no {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  line-height: 30px;
+  height: 30px;
   margin: auto;
 }
 .overview__pages {

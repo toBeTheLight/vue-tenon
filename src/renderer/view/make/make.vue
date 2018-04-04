@@ -6,22 +6,17 @@
 </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script>
 import CmptList from './children/CmptList.vue'
 import CmptOptions from './children/CmptOptions.vue'
 import CmptResult from './children/CmptResult.vue'
 
-@Component({
+export default {
   components: {
     CmptList,
     CmptOptions,
     CmptResult
   }
-})
-export default class Make extends Vue{
-
 }
 </script>
 

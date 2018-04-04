@@ -1,10 +1,8 @@
-import { State } from '../types/store'
-
-let state: State = {
-  // projectPath: '',
-  projectPath: '/Users/light/code/teono-test',
-  // projectName: ''
-  projectName: 'demo',
+let state = {
+  projectPath: '',
+  // projectPath: '/Users/light/code/teono-test',
+  projectName: '',
+  // projectName: 'demo',
   pageList: {
     'demo-test1': 'demo-test',
     'demo-test2': 'demo-test',

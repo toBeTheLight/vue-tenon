@@ -26,49 +26,52 @@
   </transition >
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script>
 import { selectDirPath, projectPathPassed, projectNamePassed } from '../../../biz/projectCreate'
 import { ADD_PROJECT } from '../../../store/mutations/types'
 import { $Mask, VtMask } from '../../../components/vtMask/index'
 
-@Component({
-  props:[
+export default {
+  props: [
     'beginCreate'
-  ]
-})
-export default class ProjectCreate extends Vue {
-  tempProjectPath = ''
-  tempProjectName = ''
-  $mask: null | VtMask = null
-  get tempConfigPassed () {
-    return projectPathPassed(this.tempProjectPath) && projectNamePassed(this.tempProjectName)
-  }
-  async selectDirPath () {
-    let { path, isEmpty } = await selectDirPath()
-    if (!isEmpty) {
-      this.$confirm('当前文件夹不为空，可能会覆盖文件夹内文件，是否继续')
-        .then(() => {
-          this.tempProjectPath = path
-        })
-        .catch(() => {
-        })
-    } else {
-      this.tempProjectPath = path
+  ],
+  data () {
+    return {
+      tempProjectPath: '',
+      tempProjectName: ''
     }
-  }
-  createNewProject ():void {
-    this.$store.commit(ADD_PROJECT, {
-      projectName: this.tempProjectName,
-      projectPath: this.tempProjectPath
-    })
-    this.endCreate()
-  }
-  endCreate ():void {
-    this.$emit('endCreate')
-    $Mask.close()
-  }
+  },
+  computed: {
+    tempConfigPassed () {
+      return projectPathPassed(this.tempProjectPath) && projectNamePassed(this.tempProjectName)
+    }
+  },
+  methods: {
+    async selectDirPath () {
+      let { path, isEmpty } = await selectDirPath()
+      if (!isEmpty) {
+        this.$confirm('当前文件夹不为空，可能会覆盖文件夹内文件，是否继续')
+          .then(() => {
+            this.tempProjectPath = path
+          })
+          .catch(() => {
+          })
+      } else {
+        this.tempProjectPath = path
+      }
+    },
+    createNewProject () {
+      this.$store.commit(ADD_PROJECT, {
+        projectName: this.tempProjectName,
+        projectPath: this.tempProjectPath
+      })
+      this.endCreate()
+    },
+    endCreate () {
+      this.$emit('endCreate')
+      $Mask.close()
+    }
+  },
   created () {
     $Mask.open()
   }

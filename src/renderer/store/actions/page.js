@@ -1,9 +1,7 @@
-import { ActionContext, Commit } from "vuex";
 import { ADD_PAGE, SET_SELECT_PAGE } from '../mutations/types'
-import { State } from '../../types/store'
 
 export default {
-  toAddPage (context: ActionContext<State, Object>, pageName: string) {
+  toAddPage (context, pageName) {
     return new Promise((resolve, reject) => {
       context.commit(ADD_PAGE, pageName)
       if (context.state.pageList[pageName]) {

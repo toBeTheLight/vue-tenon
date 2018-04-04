@@ -1,21 +1,14 @@
 import VtMask from './vtMask.vue'
 import Vue from 'vue'
 
-// typescript 无法正确推导，临时处理
-declare interface MaskInstance extends VtMask{
-  open(): Function
-  close(): Function
-  setState(): Function
-  closeAll(): Function
-}
 import {Button} from 'element-ui'
 
 // let maskPool: VtMask[] = []
-let maskPool: MaskInstance[] = []
+let maskPool = []
 
 let $Mask = {
   open () {
-    let mask: MaskInstance = new (Vue.extend(VtMask))()
+    let mask = new (Vue.extend(VtMask))()
     let vm = mask.$mount()
     document.body.appendChild(vm.$el)
     maskPool.push(mask)
@@ -28,7 +21,7 @@ let $Mask = {
       mask.close()
     }
   },
-  setState (state: boolean) {
+  setState (state) {
     if (state) {
       this.open()
     } else {

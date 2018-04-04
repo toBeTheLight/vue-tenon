@@ -5,18 +5,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import VtTestBtn from './components/vtTestBtn.vue'
-import Vue from 'vue'
-import Component from 'vue-class-component'
 
-@Component({
+export default {
   name: 'vue-tenon',
   components: {
     VtTestBtn
   }
-})
-export default class App extends Vue {
 }
 </script>
 

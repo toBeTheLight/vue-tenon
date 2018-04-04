@@ -26,37 +26,39 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script>
 import ProjectCreate from './projectCreate.vue'
 import { $Mask, VtMask } from '../../../components/vtMask/index'
 
-@Component({
+export default {
+  data () {
+    return {
+      listIsOpen: false,
+      projectList: ['it\'s demo', 'it\'s demo', 'it\'s demo', 'it\'s demo']
+    }
+  },
+  computed: {
+    projectName () {
+      return this.$store.state.projectName
+    },
+    projectPath () {
+      return this.$store.state.projectPath
+    },
+    projectConfigured () {
+      return this.$store.getters.projectConfigured
+    }
+  },
+  methods: {
+    beginCreate () {
+      this.$emit('beginCreate')
+    },
+    toggleListState () {
+      this.listIsOpen = !this.listIsOpen
+      $Mask.setState(this.listIsOpen)
+    }
+  },
   components: {
     ProjectCreate
-  }
-})
-export default class ProjectConfig extends Vue {
-  listIsOpen: boolean = false
-  projectList: string[] = ['it\'s demo', 'it\'s demo', 'it\'s demo', 'it\'s demo']
-
-  get projectName ():string {
-    return this.$store.state.projectName
-  }
-  get projectPath ():string {
-    return this.$store.state.projectPath
-  }
-  get projectConfigured ():boolean {
-    return this.$store.getters.projectConfigured
-  }
-
-  beginCreate () {
-    this.$emit('beginCreate')
-  }
-  toggleListState () {
-    this.listIsOpen = !this.listIsOpen
-    $Mask.setState(this.listIsOpen)
   }
 }
 </script>
@@ -65,6 +67,8 @@ export default class ProjectConfig extends Vue {
 @import url('~@/style/var.less');
 
 .project-config {
+  position: absolute;
+  height: 100%;
   left: 0;
   top: 0;
   z-index: 100;

@@ -6,53 +6,55 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component'
-@Component({})
-export default class TestBtn extends Vue {
-  private targetRouter: string = ''
-  private right: number = 10
-  private bottom: number = 10
-  private x: number = 0
-  private y: number = 0
-  private domWidth: number = 0
-  private domHeight: number = 0
-  private maxRight: number = 0
-  private maxBottom: number = 0
-
-  downHandler (e: MouseEvent) {
-    this.x = e.clientX
-    this.y = e.clientY
-    this.$el.addEventListener('mousemove', this.moveHandler)
-    document.body.addEventListener('mouseup', this.upHandler)
-  }
-  moveHandler (e: MouseEvent) {
-    let right = this.right + this.x - e.clientX
-    let bottom = this.bottom + this.y - e.clientY
-    console.log('限制前', right, bottom)
-    right = right < 0 ? 0 : right
-    right = right > this.maxRight ? this.maxRight : right
-    // right = Math.max(0, right)
-    // right = Math.min(this.maxRight, right)
-    bottom = Math.max(0, bottom)
-    bottom = Math.min(this.maxBottom, bottom)
-    console.log('限制后', right, bottom)
-    this.right = right
-    this.bottom = bottom
-    this.x = e.clientX
-    this.y = e.clientY
-  }
-  upHandler () {
-    this.$el.removeEventListener('mousemove', this.moveHandler)
-    document.body.removeEventListener('mouseup', this.upHandler)
-  }
-  resizeHandelr () {
-    this.domWidth = this.domWidth || this.$el.clientWidth + 10
-    this.domHeight = this.domHeight || this.$el.clientHeight + 10
-    this.maxRight = document.body.clientWidth - this.domWidth
-    this.maxBottom = document.body.clientHeight - this.domHeight
-  }
+<script>
+export default {
+  data () {
+    return {
+      targetRouter: '',
+      right: 10,
+      bottom: 10,
+      x: 0,
+      y: 0,
+      domWidth: 0,
+      domHeight: 0,
+      maxRight: 0,
+      maxBottom: 0
+    }
+  },
+    methods: {
+    downHandler (e) {
+      this.x = e.clientX
+      this.y = e.clientY
+      this.$el.addEventListener('mousemove', this.moveHandler)
+      document.body.addEventListener('mouseup', this.upHandler)
+    },
+    moveHandler (e) {
+      let right = this.right + this.x - e.clientX
+      let bottom = this.bottom + this.y - e.clientY
+      console.log('限制前', right, bottom)
+      right = right < 0 ? 0 : right
+      right = right > this.maxRight ? this.maxRight : right
+      // right = Math.max(0, right)
+      // right = Math.min(this.maxRight, right)
+      bottom = Math.max(0, bottom)
+      bottom = Math.min(this.maxBottom, bottom)
+      console.log('限制后', right, bottom)
+      this.right = right
+      this.bottom = bottom
+      this.x = e.clientX
+      this.y = e.clientY
+    },
+    upHandler () {
+      this.$el.removeEventListener('mousemove', this.moveHandler)
+      document.body.removeEventListener('mouseup', this.upHandler)
+    },
+    resizeHandelr () {
+      this.domWidth = this.domWidth || this.$el.clientWidth + 10
+      this.domHeight = this.domHeight || this.$el.clientHeight + 10
+      this.maxRight = document.body.clientWidth - this.domWidth
+      this.maxBottom = document.body.clientHeight - this.domHeight
+    }
+  },  
   mounted () {
     this.$nextTick(() => {
       this.resizeHandelr()

@@ -13,7 +13,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 let webConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
-    web: path.join(__dirname, '../src/renderer/main.ts')
+    web: path.join(__dirname, '../src/renderer/main.js')
   },
   module: {
     rules: [
@@ -22,14 +22,6 @@ let webConfig = {
         use: 'babel-loader',
         include: [ path.resolve(__dirname, '../src/renderer') ],
         exclude: /node_modules/
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
-        options: {
-          appendTsSuffixTo: [/\.vue$/]
-        }
       },
       {
         test: /\.css$/,
@@ -116,7 +108,7 @@ let webConfig = {
       '@': path.join(__dirname, '../src/renderer'),
       'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['.js', '.ts', '.vue', '.json', '.css']
+    extensions: ['.js', '.vue', '.json', '.css']
   },
   target: 'web'
 }

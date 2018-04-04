@@ -11,27 +11,26 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-
-@Component({
+<script>
+export default {
+  data () {
+    return {
+      cmptTypes: [
+        {
+          type: '微件',
+          children: [
+            '按钮',
+            '输入框',
+            '标签'
+          ]
+        }
+      ],
+      selectedType: this.cmptTypes[0]
+    }
+  },
   watch: {
     selectedType () {}
   }
-})
-export default class CmptList extends Vue {
-  private cmptTypes = [
-    {
-      type: '微件',
-      children: [
-        '按钮',
-        '输入框',
-        '标签'
-      ]
-    }
-  ]
-  private selectedType = this.cmptTypes[0]
 }
 </script>
 
