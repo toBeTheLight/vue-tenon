@@ -67,13 +67,12 @@ export default {
 @import url('~@/style/var.less');
 
 .project-config {
-  position: absolute;
-  height: 100%;
   left: 0;
   top: 0;
   z-index: 100;
 }
 .project-btn--new, .project-btn--all {
+  position: absolute;
   margin: 10px;
   transition: transform .3s linear;
   z-index: 101;

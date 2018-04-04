@@ -1,8 +1,8 @@
 let state = {
-  projectPath: '',
-  // projectPath: '/Users/light/code/teono-test',
-  projectName: '',
-  // projectName: 'demo',
+  // projectPath: '',
+  projectPath: '/Users/light/code/teono-test',
+  // projectName: '',
+  projectName: 'demo',
   pageList: {
     'demo-test1': 'demo-test',
     'demo-test2': 'demo-test',
