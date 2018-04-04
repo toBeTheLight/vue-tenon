@@ -1,35 +1,30 @@
 <template>
   <div class="cmpt-list">
     <div class="cmpt-types">
-      <el-select class="types__select" v-model="selectedType">
-        <el-option v-for="item in cmptTypes" :key="item.type" :label="item.type" :value="item" />
+      <el-select class="types__select" v-model="selectedIndex" value-key="cmpts">
+        <el-option v-for="(type, i) in cmptTypes" :key="type.name" :label="type.name" :value="i" />
       </el-select>
     </div>
     <ul class="selected-list">
-      <li class="list-cmpt" v-for="(cmpt, i) in selectedType.children" :key="cmpt">{{cmpt, i}}</li>
+      <li class="list-cmpt" v-for="cmpt in selectedType.cmpts" :key="cmpt.name">{{cmpt.name}}</li>
     </ul>
   </div>
 </template>
 
 <script>
+import materials from '../../../materials'
+import { setTimeout } from 'timers';
 export default {
   data () {
     return {
-      cmptTypes: [
-        {
-          type: '微件',
-          children: [
-            '按钮',
-            '输入框',
-            '标签'
-          ]
-        }
-      ],
-      selectedType: this.cmptTypes[0]
+      cmptTypes: materials,
+      selectedIndex: 0
     }
   },
-  watch: {
-    selectedType () {}
+  computed: {
+    selectedType () {
+      return this.cmptTypes[this.selectedIndex]
+    }
   }
 }
 </script>

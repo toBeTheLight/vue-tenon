@@ -4,10 +4,6 @@ let state = {
   // projectName: '',
   projectName: 'demo',
   pageList: {
-    'demo-test1': 'demo-test',
-    'demo-test2': 'demo-test',
-    'demo-test3': 'demo-test',
-    'demo-test4': 'demo-test'
   },
   selectedPageName: ''
 }
