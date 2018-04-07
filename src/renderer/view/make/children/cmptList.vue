@@ -5,26 +5,48 @@
         <el-option v-for="(type, i) in cmptTypes" :key="type.name" :label="type.name" :value="i" />
       </el-select>
     </div>
-    <ul class="selected-list">
-      <li class="list-cmpt" v-for="cmpt in selectedType.cmpts" :key="cmpt.name">{{cmpt.name}}</li>
-    </ul>
+    <Draggable class="selected-list" :clone="cloneHandler" :options="dragCmptsOptions" :list="selectedType.cmpts">
+      <span class="list-cmpt" v-for="cmpt in selectedType.cmpts" :key="cmpt.name">{{cmpt.name}}</span>
+    </Draggable>
   </div>
 </template>
 
 <script>
+import Draggable from 'vuedraggable'
 import materials from '../../../materials'
 import { setTimeout } from 'timers';
 export default {
   data () {
     return {
       cmptTypes: materials,
-      selectedIndex: 0
+      selectedIndex: 0,
+      refresh: true,
+      dragCmptsOptions: {
+        sort: false,
+        group: {
+          name: 'cmpts',
+          pull: 'clone',
+          put: false
+        }
+      }
     }
   },
   computed: {
     selectedType () {
+      this.refresh = false
+      this.$nextTick(() => {
+        this.refresh = true
+      })
       return this.cmptTypes[this.selectedIndex]
     }
+  },
+  methods: {
+    cloneHandler (el) {
+      return el
+    }
+  },
+  components: {
+    Draggable
   }
 }
 </script>
@@ -45,6 +67,8 @@ export default {
   box-shadow: 0px 1px 2px @gray;
 }
 .selected-list {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   overflow: auto;
 }
