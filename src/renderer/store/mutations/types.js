@@ -1,3 +1,5 @@
 export const ADD_PROJECT = 'ADD_PROJECT'
 export const ADD_PAGE = 'ADD_PAGE'
 export const SET_SELECT_PAGE = 'SET_SELECT_PAGE'
+export const SET_CMPT_TREE = 'SET_CMPTS'
+export const SET_CMPT_ID = 'SET_CMPT_ID'

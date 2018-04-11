@@ -1,15 +1,17 @@
 <template>
-  <Draggable class="cmpt-result" :options="dragCmptsOptions" v-model="list">
-    <CmptTemp v-for="item in list" :key="item.name" :options="item">{{item.name}}</CmptTemp>
+  <Draggable class="cmpt-result" :options="dragCmptsOptions" :value="list" @change="handleChange">
+    <CmptTemp v-for="item in list" :key="item.id" :options="item">{{item.name}}</CmptTemp>
   </Draggable>
 </template>
 
 <script>
 import CmptTemp from '../../../components/cmptTemp'
+import { SET_CMPT_TREE} from '../../../store/mutations/types'
+
+let id = 0
 export default {
   data () {
     return {
-      temp: [],
       dragCmptsOptions: {
         sort: true,
         group: {
@@ -18,14 +20,27 @@ export default {
       }
     }
   },
+  methods: {
+    handleChange (val) {
+      if (val.added) {
+        let { newIndex: newIndex, element: cmpt } = val.added
+        this.$store.dispatch('toSetCmptTree', {
+          parent: 'root',
+          newIndex: newIndex,
+          cmpt: cmpt
+        })
+        console.log('dispatch')
+      }
+    }
+  },
   computed: {
     list: {
       get () {
-        return this.temp
+        return this.$store.state.cmptTree
       },
-      set (val) {
-        console.log(val)
-        this.temp = JSON.parse(JSON.stringify(val))
+      // 不能使用set，需使用change获得修改，但是set不能删
+      set () {
+        return false
       }
     }
   }

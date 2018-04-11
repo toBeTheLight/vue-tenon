@@ -5,7 +5,9 @@ let state = {
   projectName: 'demo',
   pageList: {
   },
-  selectedPageName: ''
+  selectedPageName: '',
+  id: 1,
+  cmptTree: []
 }
 
 export default state
